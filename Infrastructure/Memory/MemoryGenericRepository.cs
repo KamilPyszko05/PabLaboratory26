@@ -18,12 +18,12 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T>
         ...
     }
 
-    public Task RemoveByIdAsync(TKey id)
+    public Task RemoveByIdAsync(Guid id)
     {
         ...
     }
 
-    public Task UpdateAsync(TKey id, T o)
+    public Task UpdateAsync(Guid id, T o)
     {
         ...        
     }
