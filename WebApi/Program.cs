@@ -11,7 +11,6 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddAuthorization();
-        builder.Services.AddSingleton<ICustomerService, MemoryCustomerService>();
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
@@ -27,14 +26,7 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
-       
-
-        app.MapGet("/api/customers", (ICustomerService service ,HttpContext httpContext) =>
-            {
-                return service.GetCustomers();
-            })
-            .WithName("GetCustomers");
+        
 
         app.Run();
     }

@@ -1,6 +1,6 @@
 ﻿namespace AppCore.Models;
 
-public class Contact
+public class Contact: EntityBase
 {
     public required int Id { get; set; }
     

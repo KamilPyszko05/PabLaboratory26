@@ -1,9 +1,11 @@
-﻿using AppCore.Interfaces;
+﻿using AppCore.Dto;
+using AppCore.Interfaces;
+using AppCore.Models;
 
 namespace Infrastructure.Memory;
 
 public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> 
-    where T: class 
+    where T: EntityBase
 {
     protected Dictionary<Guid, T> _data = new();
     
@@ -13,11 +15,26 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T>
         return Task.FromResult(result);
     }
 
-    public Task<List<T>> FindAllAsync()
+    public Task<IEnumerable<T>> FindAllAsync()
     {
-        var result = _data.Values.ToList();
-        return Task.FromResult(result);
+        throw new NotImplementedException();
     }
+
+    public Task<PagedResult<T>> FindPagedAsync(int page, int pageSize)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<T> AddAsync(T entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<T> UpdateAsync(T entity)
+    {
+        throw new NotImplementedException();
+    }
+
 
     public Task AddAsync(Guid id, T entity)
     {
