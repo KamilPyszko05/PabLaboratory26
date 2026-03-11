@@ -2,7 +2,7 @@
 
 namespace AppCore.Models;
 
-public class Person
+public class Person : EntityBase
 {
     public required string FirstName { get; set; }
     
