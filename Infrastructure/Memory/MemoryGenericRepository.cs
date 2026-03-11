@@ -17,22 +17,46 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T>
 
     public Task<IEnumerable<T>> FindAllAsync()
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_data.Values.AsEnumerable());
     }
 
     public Task<PagedResult<T>> FindPagedAsync(int page, int pageSize)
     {
-        throw new NotImplementedException();
+        var totalCount = _data.Count;
+        var items = _data.Values
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var result = new PagedResult<T>(items, totalCount, page, pageSize);
+        return Task.FromResult(result);
     }
 
     public Task<T> AddAsync(T entity)
     {
-        throw new NotImplementedException();
+        if (entity.Id == Guid.Empty)
+        {
+            entity.Id = Guid.NewGuid();
+        }
+
+        if (_data.ContainsKey(entity.Id))
+        {
+            throw new ArgumentException($"Encja o id {entity.Id} już istnieje w repozytorium.");
+        }
+
+        _data.Add(entity.Id, entity);
+        return Task.FromResult(entity);
     }
 
     public Task<T> UpdateAsync(T entity)
     {
-        throw new NotImplementedException();
+        if (!_data.ContainsKey(entity.Id))
+        {
+            throw new KeyNotFoundException($"Nie można zaktualizować. Brak encji o id: {entity.Id}");
+        }
+
+        _data[entity.Id] = entity;
+        return Task.FromResult(entity);
     }
 
 
