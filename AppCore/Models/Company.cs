@@ -1,6 +1,6 @@
-﻿namespace AppCore.Models;
+namespace AppCore.Models;
 
-public class Company
+public class Company : EntityBase
 {
     public required string Name { get; set; }
     public required string? NIP { get; set; }
